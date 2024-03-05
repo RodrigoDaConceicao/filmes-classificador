@@ -13,12 +13,12 @@
   <body>
     <nav>
       <% if current_user %>
-        <% if current_user.admin? %>
-          <%= link_to "Create User", new_user_path %>
-        <% end %>
         <%= form_tag logout_path, method: :delete do %>
           <%= submit_tag "Logout" %>
         <% end %>
+      <% else %>
+        <%= link_to "Create User", new_user_path %>
+        <%= link_to "Login", new_session_path %>
       <% end %>
     </nav>
 

@@ -7,9 +7,16 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      redirect_to movies_path
+      respond_to do |format|
+        format.html { redirect_to movies_path }
+        format.json { render json: @user.slice(:id,:username,:email,:admin) }
+      end
     else
-      render :new
+      respond_to do |format|
+        format.html { render :new }
+        format.json { render json: {:message=>@user.errors.full_messages}, status: 422 }
+      end
+      
     end
   end
 
