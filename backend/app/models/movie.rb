@@ -8,4 +8,8 @@ class Movie < ApplicationRecord
     user_movies.average(:score).to_f
   end
 
+  def vote_count
+    user_movies.count(:score).to_i
+  end
+
 end

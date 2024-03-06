@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception, unless: -> {request.format.json?}
+  skip_before_action :verify_authenticity_token
   helper_method :current_user, :logged_in?, :admin?
-
+  
   private
-
+  
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
@@ -18,13 +18,7 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user!
     unless logged_in?
-      respond_to do |format|
-        format.html do
-          flash[:alert] = "You must be logged in to access this page"
-          redirect_to login_path
-        end
-        format.json { render json: {:message=>"You must be logged in to access this page"}, status: 401}
-      end
+      render json: {:message=>"You must be logged in to access this page"}, status: 401
     else 
         yield if block_given?
     end
@@ -33,13 +27,7 @@ class ApplicationController < ActionController::Base
   def authorize_admin!
     authenticate_user! do
       unless @current_user&.admin
-        respond_to do |format|
-          format.html do
-            flash[:alert] = "You don't have permission to access this resource"
-            redirect_to login_path
-          end
-          format.json { render json: {:message=>"You don't have permission to access this resource"}, status: 403}
-        end
+        render json: {:message=>"You don't have permission to access this resource"}, status: 403
       end
     end
   end

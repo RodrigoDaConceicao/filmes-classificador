@@ -6,30 +6,18 @@ class UserMoviesController < ApplicationController
     @user_movie.user = current_user
     @user_movie.movie = Movie.find_by(id: params[:user_movie][:movie_id])
     if @user_movie.save
-      respond_to do |format|
-        format.html { redirect_to movies_path }
-        format.json { render json: @user_movie, status: 201}
-      end
+      render json: @user_movie, status: 201
     else
-      respond_to do |format|
-        format.html { redirect_to movies_path }
-        format.json { render json: {:message=>@user_movie.errors.full_messages}, status: 422 }
-      end
+      render json: {:message=>@user_movie.errors.full_messages}, status: 422
     end
   end
 
   def update
     @user_movie = current_user.user_movies.find_by(movie_id: params[:user_movie][:movie_id])
     if @user_movie.update(score: params[:user_movie][:score])
-      respond_to do |format|
-        format.html { redirect_to movies_path }
-        format.json { render json: @user_movie}
-      end
+      render json: @user_movie
     else
-      respond_to do |format|
-        format.html { redirect_to movies_path }
-        format.json { render json: {:message=>@user_movie.errors.full_messages}, status: 422 }
+      render json: {:message=>@user_movie.errors.full_messages}, status: 422
     end
-  end
   end
 end

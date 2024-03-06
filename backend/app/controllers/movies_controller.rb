@@ -1,37 +1,43 @@
 class MoviesController < ApplicationController
-  before_action :authorize_admin!, only:[:new, :create]
+  before_action :authorize_admin!, only:[:create]
 
   def index
     @movies = Movie.all
-    respond_to do |format|
-      format.html
-      format.json { render json: @movies.to_json(methods: :average_score) }
-    end
+    render json: @movies.to_json(methods: [:average_score, :vote_count])
   end
 
-  def new
-    @movie = Movie.new
+  def search
+    @movies = Movie.where("title like ?", "%#{params[:query]}%")
+    render json: @movies.to_json(methods: [:average_score, :vote_count])
+  end
+
+  def top_rated
+    @movies = Movie.left_joins(:user_movies).group(:movie_id).order("avg(user_movies.score) desc").limit(10)
+    render json: @movies.to_json(methods: [:average_score, :vote_count])
+  end
+
+  def popular
+    @movies = Movie.left_joins(:user_movies).group(:movie_id).order("count(user_movies.score) desc").limit(10)
+    render json: @movies.to_json(methods: [:average_score, :vote_count])
+  end
+
+  def most_recent
+    @movies = Movie.order("release_date desc").limit(10)
+    render json: @movies.to_json(methods: [:average_score, :vote_count])
   end
 
   def create
     @movie = Movie.new(movie_params)
     if @movie.save
-      respond_to do |format|
-        format.html { redirect_to movies_path, notice: "Movie was successfully created." }
-        format.json { render json: @movie.to_json }
-      end
+      ender json: @movie.to_json, status: 201
     else
-      respond_to do |format|
-        format.html { render :new }
-        format.json { render json: {:message=>@movie.errors.full_messages}, status: 422 }
-      end
-      
+      render json: {:message=>@movie.errors.full_messages}, status: 422
     end
   end
 
   private
 
   def movie_params
-    params.require(:movie).permit(:title, :director)
+    params.require(:movie).permit(:title, :director, :poster_path, :release_date, :overview, :runtime)
   end
 end
