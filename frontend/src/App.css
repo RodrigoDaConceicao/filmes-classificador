@@ -17,3 +17,10 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+.app-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

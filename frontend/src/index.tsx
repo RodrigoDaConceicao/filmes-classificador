@@ -1,16 +1,43 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import {BrowserRouter, Routes, Route} from "react-router-dom"
 import App from './App';
+import Home from './pages/Home'
+import Movie from './pages/Movie';
+import Search from './pages/Search';
+import ImportMovies from './pages/ImportMovies';
+import ImportRatings from './pages/ImportRatings';
+
 import reportWebVitals from './reportWebVitals';
 import './index.css';
-import '@progress/kendo-theme-default/dist/all.css';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import { UserProvider } from './context/UserContext';
+import Profile from './pages/Profile';
+import Logout from './pages/Logout';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <UserProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<App />}>
+            <Route path='/' element={<Home />} />
+            <Route path='movie/:id' element={<Movie />} />
+            <Route path='search' element={<Search />} />
+            <Route path='import/movies' element={<ImportMovies />} />
+            <Route path='import/ratings' element={<ImportRatings />} />
+            <Route path='login' element={<Login />} />
+            <Route path='register' element={<Register />} />
+            <Route path='profile' element={<Profile />} />
+            <Route path='logout' element={<Logout />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </UserProvider>
   </React.StrictMode>
 );
 
