@@ -1,0 +1,78 @@
+.minicard {
+    position: relative;
+    width: 185px;
+    height: 278px;
+    cursor: pointer;
+}
+
+.minicard-info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    transition: .4s;
+    opacity: 0;
+}
+
+.minicard-info-selected {
+    visibility: visible;
+    opacity: 1;
+}
+
+.minicard-title {
+    padding: .3em;
+    box-sizing: border-box;
+    margin: 0;
+    height: 6em;
+    font-weight: 600;
+    color: white;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+}
+
+.minicard-score {
+    position: absolute;
+    bottom: 3em;
+    width: 100%;
+    padding: .3em;
+    box-sizing: border-box;
+    margin: 0;
+    text-align: right;
+    color: yellow;
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 9), rgba(0, 0, 0, 0));
+}
+
+.minicard-poster {
+    width: 100%;
+    height: 100%;
+}
+
+.minicard-footer {
+    display: flex;
+    justify-content: center;
+    padding: .3em;
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3em;
+    background-color: rgba(0, 0, 0, .9);
+}
+
+.minicard-button {
+    outline: none;
+    border: 2px solid yellow;
+    border-radius: 4px;
+    background-color: inherit;
+    color: yellow;
+    font-size: 1.2em;
+}
+
+.minicard-button:active {
+    border-color: white;
+    color: white;
+    background-color: gray;
+}
