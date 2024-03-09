@@ -1,6 +1,8 @@
 class ImportMoviesJob
     include Sidekiq::Job
 
+    require 'csv'
+
     def perform(csv, separator)
         movies = CSV.parse(csv, headers: true, col_sep: separator).map { |val| val.to_h.transform_keys(&:to_sym) }
 
