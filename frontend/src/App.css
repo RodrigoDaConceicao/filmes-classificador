@@ -1,26 +1,142 @@
-.App {
-  text-align: center;
-}
+* {
+  margin: 0;
+  padding: 0;
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+  --bg-color: gray;
 
-.App-header {
-  background-color: #151950;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  --container-bg-color: black;
+
+  --element-bg-color: black;
+  --element-color: yellow;
+
+  --element-bg-color-disabled: rgb(95, 95, 95);
+
+  --element-bg-color-active: darkgray;
+  --element-color-active: lightyellow;
+
+  --element--border-color-focus: orange;
 }
 
 .app-container {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+  background-color: var(--bg-color);
+  min-height: 100vh;
+  padding-bottom: 3em;
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  box-sizing: border-box;
+  border: 2px solid var(--element-color);
+  padding: 12px;
+  border-radius: 16px;
+  background-color: var(--element-bg-color);
+  color: var(--element-color)
+}
+
+button {
+  border: 2px solid var(--element-color);
+  border-radius: 4px !important;
+  color: var(--element-color);
+  background-color: var(--element-bg-color);
+  padding: 3px;
+  box-sizing: border-box;
+}
+
+input,
+label,
+textarea {
+  outline: none;
+  border: 2px solid var(--element-color);
+  border-radius: 4px;
+  color: var(--element-color);
+  background-color: var(--element-bg-color);
+  padding: 3px;
+  box-sizing: border-box;
+}
+
+button:active,
+input:active,
+label:active,
+textarea:active {
+  border-color: var(--element-color-active);
+  color: var(--element-color-active);
+  background-color: var(--element-bg-color-active);
+}
+
+button:focus,
+input:focus,
+label:focus,
+textarea:focus {
+  border-color: var(--element--border-color-focus);
+}
+
+p {
+  border: 2px solid var(--element-color);
+  border-radius: 4px !important;
+  color: var(--element-color);
+  background-color: var(--element-bg-color-disabled);
+  padding: 3px;
+  box-sizing: border-box;
+}
+
+nav {
+  background-color: var(--container-bg-color);
+  height: 56px;
+  font-weight: bold;
+}
+
+nav form>input {
+  max-width: 375px;
+}
+
+a,
+a:link,
+a:hover {
+  text-decoration: inherit;
+  color: var(--element-color) !important;
+  font-size: larger;
+}
+
+#hidden-menu {
+  z-index: 5;
+  background-color: rgba(0, 0, 0, .9);
+}
+
+#hidden-menu>button {
+  width: fit-content;
+}
+
+.page-form {
+  border: 2px solid var(--element-color);
+  border-radius: 32px;
+  color: var(--element-color);
+  background-color: var(--element-bg-color);
+  gap: 32px
+}
+
+.movie-img {
+  max-width: 500px;
+  min-width: 300px;
+  aspect-ratio: 2/3;
+  position: relative;
+  background-color: var(--element-bg-color-disabled);
+  border-radius: 12px;
+}
+
+.movie-img svg {
+  top: 0;
+  left: 0;
+}
+
+.movie-info {
+  width: fit-content;
+}
+
+.movie-info span,
+.info-title {
+  color: var(--element--border-color-focus);
+  font-weight: bold;
 }

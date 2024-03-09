@@ -3,15 +3,25 @@
     width: 185px;
     height: 278px;
     cursor: pointer;
+    color: yellow;
+}
+
+.minicard>svg {
+    z-index: 0;
+    background-color: var(--element-bg-color-disabled);
 }
 
 .minicard-info {
+    border-radius: 0;
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 2;
     width: 100%;
     height: 100%;
+}
+
+.minicard-info-visit {
     visibility: hidden;
     transition: .4s;
     opacity: 0;
@@ -23,30 +33,42 @@
 }
 
 .minicard-title {
+    border: none;
+    border-radius: 0;
     padding: .3em;
     box-sizing: border-box;
     margin: 0;
     height: 6em;
     font-weight: 600;
     color: white;
+    background-color: transparent;
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
 }
 
 .minicard-score {
+    border: none;
+    z-index: 1;
+    border-radius: 0;
     position: absolute;
-    bottom: 3em;
-    width: 100%;
+    bottom: 0;
+    right: 0;
     padding: .3em;
     box-sizing: border-box;
     margin: 0;
     text-align: right;
-    color: yellow;
-    background-image: linear-gradient(to top, rgba(0, 0, 0, 9), rgba(0, 0, 0, 0));
+    background-color: transparent;
 }
 
 .minicard-poster {
+    position: relative;
+    z-index: 1;
     width: 100%;
     height: 100%;
+    display: block;
+    text-align: center;
+    background-color: transparent;
+    color: var(--element-color);
+    font-weight: bolder;
 }
 
 .minicard-footer {

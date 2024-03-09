@@ -2,9 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { PiFilmSlate } from "react-icons/pi";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { GiHamburgerMenu } from "react-icons/gi";
-import "./Navbar.css"
 import { useContext, useState } from "react";
-import { UserContext, UserContextType } from "../context/UserContext";
+import { UserContext, UserContextType } from "../contexts/UserContext";
 
 export default function Navbar() {
     enum NavStatus{
@@ -25,7 +24,6 @@ export default function Navbar() {
     }
 
     function preventSubmit(e:any){
-
         e.preventDefault();
         
         if (!query) return;
@@ -34,70 +32,70 @@ export default function Navbar() {
         setQuery("");
     }
     return (
-    <nav className="navbar">
-        <div className="navbar-container">
-            <h1 style={{display: "none"}}>Filmes Classificador</h1>
-            <div className="navbar-left">
-                <Link className="navbar-home" to="/"><PiFilmSlate className="navbar-home-icon" /><span className="navbar-home-text">Filmes Classificador</span></Link>
+    <>
+        <nav className="container-fluid d-flex justify-content-between py-2">
+
+            <h1 className="d-none">Classificador</h1>
+            <div className="">
+                <Link className="link-unstyled h-100 d-flex align-items-center" to="/"><PiFilmSlate size={32} /><span className="d-none d-sm-inline">Classificador</span></Link>
             </div>
-            <div className="navbar-center">
-                <form action="search" className="navbar-search" onSubmit={preventSubmit}>
-                    <input className="navbar-search-input" onChange={(e:any) => setQuery(e.target.value)} type="search" id="movie-search" name="query" size={1} />
-                    <button className="navbar-button" type="submit"><FaMagnifyingGlass /></button>
+            <div className="d-flex justify-content-center flex-grow-1">
+                <form action="search" className="d-flex container-fluid justify-content-center" onSubmit={preventSubmit}>
+                    <input className="flex-grow-1" value={query} onChange={(e:any) => setQuery(e.target.value)} type="search" id="movie-search" name="query" size={1} />
+                    <button className="px-2" type="submit"><FaMagnifyingGlass /></button>
                 </form>
             </div>
-            <div className="navbar-right">
-                <button className="navbar-accordion-activator" onClick={toggleNavStatus}><GiHamburgerMenu /></button>
-                {!user && (
-                <>
-                    <Link className="navbar-link" to="/login">
-                        <button className="navbar-button navbar-user-button">login</button>
-                    </Link>
-                    <Link className="navbar-link" to="/register">
-                        <button className="navbar-button navbar-user-button">cadastrar</button>
-                    </Link>
-                </>
-                )}
-                {user && (
-                <>
-                    <Link className="navbar-link" to="/profile">
-                        <button className="navbar-button navbar-user-button">{user.username}</button>
-                    </Link>
-                    <Link className="navbar-link" to="/logout">
-                        <button className="navbar-button navbar-user-button">sair</button>
-                    </Link>
-                </>
-                )}
-
-                
-
+            <div className="navbar-right d-flex align-items-center">
+                <button className="d-sx-inline-flex d-sm-none align-items-center h-100 px-2" onClick={toggleNavStatus}><GiHamburgerMenu size={20} /></button>
+                <div className="d-none d-sm-flex h-100">
+                    {!user && (
+                    <>
+                        <Link className="h-100" to="/login">
+                            <button className="h-100">login</button>
+                        </Link>
+                        <Link className="h-100" to="/register">
+                            <button className="h-100">cadastrar</button>
+                        </Link>
+                    </>
+                    )}
+                    {user && (
+                    <>
+                        <Link className="h-100" to="/profile">
+                            <button className="h-100">{user.username}</button>
+                        </Link>
+                        <Link className="h-100" to="/logout">
+                            <button className="h-100">sair</button>
+                        </Link>
+                    </>
+                    )}
+                </div>
             </div>
-        </div>
+        </nav>
         {navStatus === NavStatus.EXPANDED && (
-            <>
+            <div id="hidden-menu" className="position-absolute w-100 d-flex d-sm-none flex-column p-2">
                 {!user && (
-                    <div className="navbar-accordion">
+                    <>
                         <Link to="/login">
-                            <button className="navbar-accordion-button">login</button>
+                            <button className="w-100">login</button>
                         </Link>
                         <Link to="/register">
-                            <button className="navbar-accordion-button">cadastrar</button>
+                            <button className="w-100">cadastrar</button>
                         </Link>
-                    </div>
+                    </>
                 )}
                 {user && (
-                    <div className="navbar-accordion">
+                    <>
                         <Link to="/profile">
-                            <button className="navbar-accordion-button">{user.username}</button>
+                            <button className="w-100">{user.username}</button>
                         </Link>
                         <Link to="/logout">
-                            <button className="navbar-accordion-button">sair</button>
+                            <button className="w-100">sair</button>
                         </Link>
-                    </div>
+                    </>
                 )}
-            </>
+            </div>
         )}
         
-    </nav>
+    </>
     );
 }

@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { UserContext, UserContextType } from "../context/UserContext";
+import { UserContext, UserContextType } from "../contexts/UserContext";
 import { useNavigate } from "react-router";
 
 export default function Logout(){

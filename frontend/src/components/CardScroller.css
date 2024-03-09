@@ -1,5 +1,7 @@
 .scroller-container {
     background-color: rgba(0, 0, 0, .8);
+    border-radius: 12px;
+    position: relative;
 }
 
 .scroller {
@@ -7,17 +9,60 @@
     overflow-x: auto;
     overflow-y: hidden;
     gap: 1em;
-    padding: 1em;
+    padding: .5em 1em 1em 1em;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+    scroll-behavior: smooth !important;
+}
+
+.scroller::-webkit-scrollbar {
+    display: none;
 }
 
 .scroller-title {
     color: yellow;
+    border: none;
     margin: 0;
-    padding: .5em;
+    padding: 0;
+    padding-top: .5em;
+    padding-left: .5em;
     font-size: 1.5em;
     font-weight: normal;
+    background-color: transparent;
 }
 
 .scroller-item {
     flex-shrink: 0;
+}
+
+.scroller-arrow {
+    top: 0;
+    left: 0;
+    z-index: 3;
+    pointer-events: none
+}
+
+.scroller-arrow-left,
+.scroller-arrow-right {
+    pointer-events: all;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    transition: 0.4s;
+    opacity: 0;
+}
+
+.scroller-arrow-left:hover,
+.scroller-arrow-right:hover {
+    opacity: 1;
+}
+
+.scroller-arrow-left {
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+}
+
+.scroller-arrow-right {
+    background-image: linear-gradient(to left, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
 }

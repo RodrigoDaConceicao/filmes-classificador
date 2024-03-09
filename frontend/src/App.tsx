@@ -1,9 +1,10 @@
 import { Outlet } from 'react-router';
 import '@progress/kendo-theme-default/dist/all.css';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.css'
 import Navbar from './components/Navbar';
 import { useContext, useEffect } from 'react';
-import { UserContext, UserContextType } from './context/UserContext';
+import { UserContext, UserContextType } from './contexts/UserContext';
 
 function App() {
   const {setUser} = useContext(UserContext) as UserContextType;

@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
-import { UserContext, UserContextType } from "../context/UserContext";
-import "./Forms.css";
+import { UserContext, UserContextType } from "../contexts/UserContext";
 import { useNavigate } from "react-router";
 
 export default function Login(){
@@ -11,7 +10,6 @@ export default function Login(){
 
     async function handleSubmit(e:any){
         e.preventDefault();
-
         var res = await fetch(process.env.REACT_APP_DATA_API+"sessions",
             {
                 method: 'POST',
@@ -36,12 +34,12 @@ export default function Login(){
         }
     }
     return (
-        <div className="form-container">
-            <form className="form-begin" action="">
-                <h2 className="form-title">Login</h2>
-                <input className="form-input" onChange={(e)=>setEmail(e.target.value)} type="email" name="email" placeholder="E-mail" required/>
-                <input className="form-input" onChange={(e)=>setPassword(e.target.value)} type="password" name="password" placeholder="Senha" required/>
-                <button className="form-button" type="submit" onClick={handleSubmit}>Logar</button>
+        <div className="container d-flex flex-column justify-content-center my-4">
+            <h2 className="">Login</h2>
+            <form className="d-flex flex-column align-items-center justify-content-center page-form p-5" action="">
+                <input className="" onChange={(e)=>setEmail(e.target.value)} type="email" name="email" placeholder="E-mail" required/>
+                <input className="" onChange={(e)=>setPassword(e.target.value)} type="password" name="password" placeholder="Senha" required/>
+                <button className="" type="submit" onClick={handleSubmit}>Logar</button>
             </form>
         </div>
     );

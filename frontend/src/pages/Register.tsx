@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
-import { UserContext, UserContextType } from "../context/UserContext";
-
+import { UserContext, UserContextType } from "../contexts/UserContext";
 
 export default function Register(){
     const {user, setUser} = useContext(UserContext) as UserContextType;
@@ -42,14 +41,14 @@ export default function Register(){
         }
     }
     return (
-        <div className="form-container">
-            <form className="form-begin" action="">
-                <h2 className="form-title">Cadastro</h2>
-                <input className="form-input" onChange={(e)=>setUsername(e.target.value)} type="username" name="username" placeholder="Nome de usuário" required/>
-                <input className="form-input" onChange={(e)=>setEmail(e.target.value)} type="email" name="email" placeholder="E-mail" required/>
-                <input className="form-input" onChange={(e)=>setPassword(e.target.value)} type="password" name="password" placeholder="Senha" required/>
-                <input className="form-input" onChange={(e)=>setPasswordConfirmation(e.target.value)} type="password" name="passwordConfirmation" placeholder="Confirme a senha" required/>
-                <button className="form-button" type="submit" onClick={handleSubmit}>Cadastrar</button>
+        <div className="container d-flex flex-column justify-content-center my-4">
+            <h2 className="form-title">Cadastro</h2>
+            <form className="d-flex flex-column align-items-center justify-content-center page-form p-5" action="">
+                <input className="" onChange={(e)=>setUsername(e.target.value)} type="username" name="username" placeholder="Nome de usuário" required/>
+                <input className="" onChange={(e)=>setEmail(e.target.value)} type="email" name="email" placeholder="E-mail" required/>
+                <input className="" onChange={(e)=>setPassword(e.target.value)} type="password" name="password" placeholder="Senha" required/>
+                <input className="" onChange={(e)=>setPasswordConfirmation(e.target.value)} type="password" name="passwordConfirmation" placeholder="Confirme a senha" required/>
+                <button className="" type="submit" onClick={handleSubmit}>Cadastrar</button>
             </form>
         </div>
     );
