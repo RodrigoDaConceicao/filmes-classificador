@@ -15,7 +15,7 @@ class MoviesController < ApplicationController
 
   def show
     @movie = Movie.left_joins(:user_movies)
-    .select("movies.*, avg(score) as average_score, count(user_movies.score) as vote_cout")
+    .select("movies.*, avg(score) as average_score, count(user_movies.score) as vote_count")
     .group(:id)
     .find(params[:id])
     @score = @movie.user_movies.find_by(user_id: current_user&.id)&.score
