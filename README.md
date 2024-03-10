@@ -10,8 +10,8 @@ rails db:seed
 ```
 ### Configurações:
 * Configurar ip e a porta no arquivo config/initializers/cors.rb do backend para permitir a passagem do cookie de autenticação com o frontend.
-    > [!IMPORTANT]
-    > Obs.: A url de acesso ao frontend deve ser a mesma do backend. Exemplo: caso tenha configurado o .env do frontend para acessar a api pelo endereço ip: [http://127.0.0.1:\[Port do rails\]](), então deve acessar o aplicativo React pelo endereço ip: [http://127.0.0.1:\[Port do react\]]()
+> [!IMPORTANT]
+> Obs.: A url de acesso ao frontend deve ser a mesma do backend. Exemplo: caso tenha configurado o .env do frontend para acessar a api pelo endereço ip: [http://127.0.0.1:\[Port do rails\]](), então deve acessar o aplicativo React pelo endereço ip: [http://127.0.0.1:\[Port do react\]]()
 
 * Configurar o endereço do servidor redis nas variáveis de ambiente na pasta environments.
 * Executar um servidor do redis.
@@ -27,9 +27,8 @@ rails db:seed
 * A porta do servidor React pode ser configurada na chave PORT.
 * O endereço da api e porta do backend deve ser configurado na chave `REACT_APP_DATA_API`.
 * Executar o comando `npm start`
-
-    > [!WARNING]
-    > Obs.: Devem rodar no mesmo endereço, caso contrário, haverão problemas de autenticação
+> [!WARNING]
+> Obs.: Devem rodar no mesmo endereço, caso contrário, haverão problemas de autenticação
     
 ## Funcionalidades
 * A tela de feed deve estar vazia por não haver filmes cadastrados
