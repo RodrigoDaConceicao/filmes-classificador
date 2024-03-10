@@ -14,25 +14,23 @@ class MoviesController < ApplicationController
   end
 
   def show
-    current_user
-    @user_movie = UserMovie.find_by(movie_id: params[:id], user_id: current_user.id)
-    @movie = Movie.select("movies.*, avg(user_movies.score) as average_score, count(1) as vote_count",
-       "#{@user_movie ? @user_movie[:score] : 0} as user_score")
-    .left_joins(:user_movies)
-    .where(id:params[:id])
-    .group(:movie_id)
-    render json: @movie.first
+    @movie = Movie.left_joins(:user_movies)
+    .select("movies.*, avg(score) as average_score, count(user_movies.score) as vote_cout")
+    .group(:id)
+    .find(params[:id])
+    @score = @movie.user_movies.find_by(user_id: current_user&.id)&.score
+    render json: @movie.attributes().merge({"user_score"=>@score})
   end
 
   def index
     if !!params[:user_id] && current_user.id == params[:user_id].to_i
-      @movie = Movie.select("movies.*, avg(user_movies.score) as average_score, count(1) as vote_count,"+
-      '(select user_movies.score from user_movies as umo2 where movies.id = umo2.movie_id and user_id = '+current_user.id.to_s+') as user_score').joins(:user_movies)
+      @movie = Movie.select("movies.*, avg(user_movies.score) as average_score, count(user_movies.score) as vote_count,"+
+      "(select user_movies.score from user_movies as umo2 where movies.id = umo2.movie_id and user_id = #{current_user.id}) as user_score").left_joins(:user_movies)
       .where("user_movies.user_id = "+ current_user.id.to_s)
       .group(:movie_id)
       render json: @movie
     elsif !params[:user_id]
-      render json: Movie.all;
+      render json: Movie.all.to_json(methods: [:average_score, :vote_count]);
     else
       render json: {:message=>"Unprocessable Entity"}, status: 422
     end

@@ -1,6 +1,6 @@
 class UserMoviesController < ApplicationController
+  before_action :authorize_admin!, only: [:import]
   before_action :authenticate_user!, only:[:create, :update]
-  before_action :authorize_admin!, only:[:import]
 
   def import
     separator = (params[:separator] == 'comma' ? ',' : ';')
@@ -26,7 +26,7 @@ class UserMoviesController < ApplicationController
   end
 
   def update
-    @user_movie = current_user.user_movies.find_by(movie_id: params[:user_movie][:movie_id])
+    @user_movie = current_user.user_movies.find_by(movie_id: params[:id])
     if @user_movie.update(score: params[:user_movie][:score])
       render json: @user_movie
     else
