@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from "react"
 import { UserContext, UserContextType } from "../contexts/UserContext";
-import MoviesService from "../services/MoviesService";
+import {useMoviesService} from "../services/MoviesService";
 
 export default function ImportMovies() {
-    const {user, setUser} = useContext(UserContext) as UserContextType;
+    const {user} = useContext(UserContext) as UserContextType;
     const [file, setFile] = useState<File>()
     const [separator, setSeparator] = useState<string>('comma');
+    const {movieService} = useMoviesService();
 
     useEffect(()=>{
         var labelElement = document.getElementById("movie-csv-label");
@@ -21,7 +22,7 @@ export default function ImportMovies() {
         e.preventDefault();
 
         if (file)
-            MoviesService.PostMoviesCsv(file, separator);
+            movieService.PostMoviesCsv(file, separator);
     }
     function separatorChanged(e:any){
         setSeparator(e.target.value);

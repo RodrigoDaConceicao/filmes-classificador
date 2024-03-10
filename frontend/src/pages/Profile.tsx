@@ -3,7 +3,7 @@ import { UserContext, UserContextType } from "../contexts/UserContext";
 import { FaCheck, FaStar } from "react-icons/fa6";
 import { MdClose } from "react-icons/md";
 import "@progress/kendo-theme-default/dist/all.css"
-import { Grid, GridColumn as Column, GridDataStateChangeEvent, GridPageChangeEvent, GridSortChangeEvent, GridFilterChangeEvent } from "@progress/kendo-react-grid";
+import { Grid, GridColumn as Column, GridDataStateChangeEvent } from "@progress/kendo-react-grid";
 import { process, State, DataResult } from "@progress/kendo-data-query";
 import { Link } from "react-router-dom";
 import { IMovie } from "../services/MoviesService";
@@ -25,15 +25,16 @@ export default function Profile(){
     const[dataState, setDataState] = useState<State>(initialDataState);
     const[dataResult, setDataResult] = useState<DataResult>();
     useEffect(()=>{
+        async function fillMovies(){
+            setMovies(await UsersService.GetMovies(user?.id));
+        }
+
         fillMovies();
     }, []);
     useEffect(()=>{
         setDataResult(process(movies, dataState))
     },[movies]);
 
-    async function fillMovies(){
-        setMovies(await UsersService.GetMovies(user?.id));
-    }
 
     const PosterCell = (props:any) => {
         return(

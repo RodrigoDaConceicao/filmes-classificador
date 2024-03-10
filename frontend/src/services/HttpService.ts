@@ -1,3 +1,31 @@
+export class HttpServiceError extends Error {
+    status: number;
+
+    constructor(status: number, msg: Array<string> | string) {
+        if (msg instanceof String) {
+            super(msg as string);
+        }
+        else if (msg instanceof Array) {
+            super((msg as Array<string>).join('\n'));
+        }
+        else {
+            super("Erro não especificado.");
+            this.status = status;
+        }
+
+        this.status = status;
+    }
+}
+
+async function handleResponse(response: Response) {
+    if (response.status < 200 || response.status > 299) {
+        var body = await response.json()
+        throw new HttpServiceError(response.status, body.message)
+    }
+
+    return await response.json();
+}
+
 const HttpService = {
     Get: async function (url: string) {
         var response = await fetch(url,
@@ -10,11 +38,10 @@ const HttpService = {
                 }
             }
         );
-
-        return await response.json();
+        return handleResponse(response);
     },
 
-    Post: async function (url: string, data: JSON) {
+    Post: async function (url: string, data: Object) {
         var response = await fetch(url,
             {
                 method: 'POST',
@@ -27,7 +54,7 @@ const HttpService = {
             }
         );
 
-        return await response.json();
+        return handleResponse(response);
     },
     PostCsv: async function (url: string, file: File) {
         var text = await file.text();
@@ -44,10 +71,10 @@ const HttpService = {
             }
         );
 
-        return await response.json();
+        return handleResponse(response);
     },
 
-    Patch: async function (url: string, data: JSON) {
+    Patch: async function (url: string, data: Object) {
         var response = await fetch(url,
             {
                 method: 'PATCH',
@@ -60,7 +87,7 @@ const HttpService = {
             }
         );
 
-        return await response.json();
+        return handleResponse(response);
     },
 
     Delete: async function (url: string) {
@@ -74,10 +101,10 @@ const HttpService = {
                 }
             }
         );
-        return await response.json();
+        return handleResponse(response);
     },
 
-    Put: async function Put(url: string, data: JSON) {
+    Put: async function Put(url: string, data: Object) {
         var response = await fetch(url,
             {
                 method: 'PUT',
@@ -89,7 +116,7 @@ const HttpService = {
                 body: JSON.stringify(data)
             }
         );
-        return await response.json();
+        return handleResponse(response);
     }
 }
 

@@ -1,22 +1,25 @@
 import { useEffect, useState } from "react";
 import CardScroller from "../components/CardScroller";
 import MiniCard from "../components/MiniCard";
-import MoviesService, { IMovie } from "../services/MoviesService";
+import { useMoviesService, IMovie } from "../services/MoviesService";
 
 export default function Home() {
     const [topRated,setTopRated] = useState<IMovie[]>([]);
     const [topVoted,setTopVoted] = useState<IMovie[]>([]);
     const [newests,setNewests] = useState<IMovie[]>([]);
-
+    const {movieService} = useMoviesService();
+    
     useEffect(()=>{
-        fillmovies();
-    }, []);
+        async function fillmovies(){
+            setTopRated(await movieService.GetTopRated());
+            setTopVoted(await movieService.GetTopVoted());
+            setNewests(await movieService.GetNewests());
+        }
 
-    async function fillmovies(){
-        setTopRated(await MoviesService.GetTopRated());
-        setTopVoted(await MoviesService.GetTopVoted());
-        setNewests(await MoviesService.GetNewests());
-    }
+        fillmovies();
+    },[]);
+
+    
 
     return (
         <div className="container d-flex flex-column gap-3 my-3">

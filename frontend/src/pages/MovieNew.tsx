@@ -1,16 +1,15 @@
-import { useContext, useEffect, useState } from "react";
-import { UserContext, UserContextType } from "../contexts/UserContext";
+import { useState } from "react";
 import { useNavigate } from "react-router";
-import MoviesService, { IMovie } from "../services/MoviesService";
+import { useMoviesService, IMovie } from "../services/MoviesService";
 
 export default function MovieNew(){
-    const {user, setUser} = useContext(UserContext) as UserContextType;
     const [movie, setMovie] = useState<IMovie>({});
     const navigate = useNavigate();
+    const {movieService} = useMoviesService();
 
     async function handleSubmit(e:any){
         e.preventDefault();
-        var m = await MoviesService.PostMovie(movie);
+        var m = await movieService.PostMovie(movie);
         m.id && navigate(`/movie/${m.id}`, {replace: true});
     }
     return (
