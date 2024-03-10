@@ -86,7 +86,7 @@ export default function Movie() {
                         </h3>
                         {user && (<h3 className="movie-info">
                             <span className="">Seu voto: </span>
-                                <select value={movie.user_score} disabled={voteState === VoteState.IN_PROGRESS} onChange={onVoteChanged} style={{textAlign:"center", outline: "none"}}>
+                                <select value={movie.user_score != null ? movie.user_score : ""} disabled={voteState === VoteState.IN_PROGRESS} onChange={onVoteChanged} style={{textAlign:"center", outline: "none"}}>
                                     <option value="">--</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
